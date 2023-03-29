@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from pydantic import BaseSettings
 
 
@@ -9,7 +11,7 @@ class Settings(BaseSettings):
     db_pass: str
 
     class Config:
-        env_file = ".env"
+        env_file = Path.cwd() / ".env"
 
 
 settings = Settings()
