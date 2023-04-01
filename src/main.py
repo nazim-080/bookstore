@@ -12,4 +12,5 @@ async def startup() -> None:
 
     await run_async_upgrade()
 
+
 app.include_router(author_router)

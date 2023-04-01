@@ -1,11 +1,10 @@
 import datetime
 
 from fastapi import APIRouter, Depends
-
 from sqlmodel.ext.asyncio.session import AsyncSession
 from starlette.requests import Request
 
-from src.authors.models import Author, AuthorRead, AuthorPatch, AuthorCreate
+from src.authors.models import Author, AuthorCreate, AuthorPatch, AuthorRead
 from src.db import get_session
 from src.service import BaseCRUD
 
@@ -15,12 +14,14 @@ author_crud = BaseCRUD(Author)
 
 
 @author_router.get("/", response_model=list[AuthorRead])
-async def get_authors(request: Request,
-                      session: AsyncSession = Depends(get_session),
-                      first_name: str | None = None,
-                      last_name: str | None = None,
-                      birthday: datetime.date = None,
-                      day_of_death: datetime.date | None = None):
+async def get_authors(
+    request: Request,
+    session: AsyncSession = Depends(get_session),
+    first_name: str | None = None,
+    last_name: str | None = None,
+    birthday: datetime.date = None,
+    day_of_death: datetime.date | None = None,
+):
     return await author_crud.list(session, request.query_params._dict)
 
 

@@ -7,7 +7,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-fastapi = {extras = ["all"], version = "^0.95.0"}
+fastapi = { extras = ["all"], version = "^0.95.0" }
 alembic = "^1.10.2"
 sqlmodel = "^0.0.8"
 psycopg2-binary = "^2.9.5"
@@ -20,3 +20,15 @@ pre-commit = "^3.2.1"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 120
+target-version = ['py310']
+
+[tool.flake8]
+max-line-length = 120
+
+[tool.isort]
+atomic = true
+profile = "black"
+line_length = 120
