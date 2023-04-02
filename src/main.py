@@ -1,6 +1,8 @@
+import logging
+
 from fastapi import FastAPI
 
-from src.authors.router import author_router
+from src.book.router import book_router
 from src.db import run_async_upgrade
 
 app = FastAPI(title="Bookstore", debug=True)
@@ -13,4 +15,4 @@ async def startup() -> None:
     await run_async_upgrade()
 
 
-app.include_router(author_router)
+app.include_router(book_router)
