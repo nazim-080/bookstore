@@ -2,27 +2,8 @@ import datetime
 
 from sqlmodel import Field, Relationship, SQLModel
 
-
-class CountryBase(SQLModel):
-    name: str
-
-
-class Country(CountryBase, table=True):
-    id: int | None = Field(default=None, primary_key=True)
-
-    authors: list["Author"] = Relationship(back_populates="country", sa_relationship_kwargs={"lazy": "selectin"})
-
-
-class CountryRead(CountryBase):
-    id: int
-
-
-class CountryUpdate(CountryBase):
-    pass
-
-
-class CountryCreate(CountryBase):
-    pass
+from src.library.models.book import BookAuthor, BookGenre
+from src.library.models.country import Country
 
 
 class AuthorBase(SQLModel):
@@ -36,11 +17,15 @@ class AuthorBase(SQLModel):
 
     country_id: int | None = Field(default=None, foreign_key="country.id")
 
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
+
 
 class Author(AuthorBase, table=True):
     id: int | None = Field(default=None, primary_key=True)
 
     country: Country | None = Relationship(back_populates="authors")
+    books: list["Book"] = Relationship(back_populates="authors", link_model=BookAuthor)
 
 
 class AuthorRead(AuthorBase):

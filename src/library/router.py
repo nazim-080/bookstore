@@ -4,18 +4,9 @@ from fastapi import APIRouter, Depends
 from sqlmodel.ext.asyncio.session import AsyncSession
 from starlette.requests import Request
 
-from src.book.models import (
-    Author,
-    AuthorCreate,
-    AuthorRead,
-    AuthorUpdate,
-    AuthorWithCountry,
-    Country,
-    CountryCreate,
-    CountryRead,
-    CountryUpdate,
-)
 from src.db import get_session
+from src.library.models.author import Author, AuthorCreate, AuthorRead, AuthorUpdate, AuthorWithCountry
+from src.library.models.country import Country, CountryCreate, CountryRead, CountryUpdate
 from src.service import BaseRepo
 
 book_router = APIRouter()
